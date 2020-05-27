@@ -15,5 +15,5 @@ Rails.application.routes.draw do
     end
   end
 
-  root 'home#show'
+  root 'logins#new'
 end
