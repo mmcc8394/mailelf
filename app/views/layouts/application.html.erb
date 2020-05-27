@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>
+      <% if content_for? :head_title %>
+        <%= yield :head_title %>
+      <% else %>
+        Easy Bake Beginnings
+      <% end %>
+    </title>
+
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body id="<%= params[:controller] + '-' + params[:action] %>">
+    <%= render 'layouts/modal' %>
+    <%= render 'layouts/navigation' %>
+
+    <div class="container">
+      <%= render 'layouts/flash' %>
+
+      <%= yield %>
+    </div>
+  </body>
+</html>

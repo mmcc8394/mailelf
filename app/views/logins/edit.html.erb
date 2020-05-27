@@ -1,0 +1,13 @@
+<h1>Reset Password</h1>
+
+<div class="row">
+  <div class="col-md-6">
+    <%= form_for @user, url: login_path, method: :put do |f| %>
+      <% fi = FormItem.new(f) %>
+
+      <%= hidden_field_tag :guid, @user.password_reset_guid %>
+      <%= render partial: 'users/password', locals: { form_item: fi } %>
+      <%= fi.submit_with_cancel('Reset Password') %>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,20 @@
+<h1>List of Users</h1>
+
+<p>
+  <%= link_to 'Add New User', new_user_path %>
+</p>
+
+<table class="table">
+  <% @users.each do |user| %>
+    <tr>
+      <td><%= user.email %></td>
+      <td>[<%= user.print_roles %>]</td>
+      <td>
+        <%= action_link(user_path(user), 'eye', 'view user') %>
+        <%= action_link(edit_user_path(user), 'pencil', 'edit user') %>
+        <%= action_link(edit_password_user_path(user), 'shield-lock', 'change password') %>
+        <%= action_link_delete(user_path(user)) %>
+      </td>
+    </tr>
+  <% end %>
+</table>

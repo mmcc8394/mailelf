@@ -1,0 +1,12 @@
+<div class="row" id="login-box">
+  <div class="col-sm-8 offset-sm-2 col-lg-4 offset-lg-4">
+    <%= form_for @user, url: login_url, method: :post do |f| %>
+      <% fi = FormItem.new(f) %>
+
+      <%= fi.text_field(:email, 'email') %>
+      <%= fi.password(:password, 'password') %>
+      <%= fi.submit('login') %>
+      <%= link_to 'forgot password', lost_password_email_login_path, id: 'forgot-password' %>
+    <% end %>
+  </div>
+</div>

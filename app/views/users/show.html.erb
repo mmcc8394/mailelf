@@ -1,0 +1,21 @@
+<h1>User Details</h1>
+
+<div class="mb-2 mr-5 text-right">
+  <%= action_link(edit_user_path(@user), 'pencil', 'edit user') %>
+  <%= action_link(edit_password_user_path(@user), 'shield-lock', 'change password') %>
+  <% if policy(@user).destroy? %>
+    <%= action_link_delete(user_path(@user)) %>
+  <% end %>
+</div>
+
+<table class="table">
+  <tr>
+    <td>Email & Login</td>
+    <td><%= @user.email %></td>
+  </tr>
+
+  <tr>
+    <td>Roles</td>
+    <td><%= @user.print_roles %></td>
+  </tr>
+</table>
