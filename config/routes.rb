@@ -15,5 +15,7 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :campaigns
+
   root 'logins#new'
 end
