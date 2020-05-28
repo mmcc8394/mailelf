@@ -51,11 +51,20 @@ RSpec.describe EmailTemplate, type: :model do
 
     it 'delete' do
       expect(@template.destroy).to eq('destroyed')
+      expect(EmailTemplate.all.length).to eq(0)
     end
 
     it 'archived' do
       Campaign.create!({ email_template_id: @template.id, admin_id: 1 })
       expect(@template.destroy).to eq('archived')
+      expect(EmailTemplate.all.length).to eq(1)
     end
+  end
+
+  it 'prevent update on archived' do
+    @template.archived = true
+    @template.save!
+    expect(@template.update({ name: 'New Name' })).to eq(false)
+    expect(@template.errors[:archived]).to include('is not editable')
   end
 end
