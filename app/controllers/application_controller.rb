@@ -21,6 +21,6 @@ class ApplicationController < ActionController::Base
   private
 
   def user_not_authorized
-    redirect_to root_path, alert: 'Access denied. You must login as an authorized user.'
+    redirect_to access_denied_path, alert: 'Access denied. You must login as an authorized user.'
   end
 end

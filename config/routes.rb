@@ -7,6 +7,7 @@ Rails.application.routes.draw do
       post 'request_password_reset'
     end
   end
+  get 'access-denied', to: 'logins#access_denied', as: 'access_denied'
 
   resources :users do
     member do

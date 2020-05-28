@@ -1,7 +1,7 @@
 class LoginsController < ApplicationController
 
   def new
-    redirect_to root_path, alert: "Youre already logged in, silly." if logged_in?
+    redirect_to campaigns_path, alert: "You're already logged in, silly." if logged_in?
     @user = User.new
   end
 
@@ -56,6 +56,9 @@ class LoginsController < ApplicationController
   def destroy
     session[:user_id] = nil
     redirect_to root_path, notice: 'Successfully logged out.'
+  end
+
+  def access_denied
   end
 
   private
