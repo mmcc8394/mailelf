@@ -1,9 +1,10 @@
 class EmailTemplatesController < ApplicationController
   before_action :verify_logged_in
-  before_action :set_email_template, only: [:show, :edit, :update, :destroy]
+  before_action :set_email_template, only: [ :show, :edit, :update, :destroy ]
+  before_action :check_archived, only: [ :edit, :update, :destroy ]
 
   def index
-    @email_templates = EmailTemplate.all
+    @email_templates = EmailTemplate.all.order(:name)
   end
 
   def show
@@ -40,6 +41,10 @@ class EmailTemplatesController < ApplicationController
   end
 
   private
+
+  def check_archived
+    redirect_to email_templates_path, notice: "Cannot #{params[:action]} an archived template." if @email_template.archived
+  end
 
   def set_email_template
     @email_template = EmailTemplate.find(params[:id])
