@@ -24,7 +24,6 @@ class EmailTemplatesController < ApplicationController
     end
   end
 
-  # GET /email_templates/1/edit
   def edit
   end
 
