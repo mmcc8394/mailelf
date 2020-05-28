@@ -16,6 +16,9 @@
   <%= fi.text_field(:name, 'template name') %>
   <%= fi.text_field(:subject, 'template subject') %>
   <%= fi.text_area(:message, { placeholder: 'template message', rows: 15 }) %>
-  <%= fi.submit('create') %>
-  <%= link_to 'Cancel', email_templates_path %>
+
+  <div class="submit-line">
+    <%= fi.submit('submit') %>
+    <%= link_to 'cancel', email_templates_path, class: 'cancel-link' %>
+  </div>
 <% end %>
