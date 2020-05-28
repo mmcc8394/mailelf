@@ -45,4 +45,17 @@ RSpec.describe EmailTemplate, type: :model do
       @template.admin_id = 0
     end
   end
+
+  context 'destroy' do
+    before(:each) { @template.save! }
+
+    it 'delete' do
+      expect(@template.destroy).to eq('destroyed')
+    end
+
+    it 'archived' do
+      Campaign.create!({ email_template_id: @template.id, admin_id: 1 })
+      expect(@template.destroy).to eq('archived')
+    end
+  end
 end
