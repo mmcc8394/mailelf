@@ -1,13 +1,19 @@
+#error_explanation,
 .flash {
   padding: 1em;
   margin: 1em 0;
+
+  ol, ul {
+    margin: 0;
+  }
+}
+
+#error_explanation,
+.flash-alert {
+  background-color: pink;
 }
 
 .flash-success,
 .flash-notice {
   background-color: #e3f2dd;
-}
-
-.flash-alert {
-  background-color: pink;
 }
