@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :email_templates
   resources :campaigns
 
   root 'logins#new'

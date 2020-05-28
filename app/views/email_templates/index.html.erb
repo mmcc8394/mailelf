@@ -1,0 +1,20 @@
+<h1>Email Templates</h1>
+
+<%= link_to 'New Email Template', new_email_template_path, class: 'btn btn-primary mb-3' %>
+
+<% if @email_templates.empty? %>
+  <h3 class="mt-3"><i>No email templates found.</i></h3>
+<% else %>
+  <table class="table">
+    <% @email_templates.each do |template| %>
+      <tr>
+        <td><%= template.name %></td>
+        <td>
+          <%= action_link(email_template_path(template), 'eye', 'view template') %>
+          <%= action_link(edit_email_template_path(template), 'pencil', 'edit template') %>
+          <%= action_link_delete(email_template_path(template)) %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+<% end %>

@@ -14,6 +14,10 @@ class FormItem
     FormTextField.new(@form).build_form_item(field, { placeholder: placeholder })
   end
 
+  def text_area(field, options)
+    FormTextArea.new(@form).build_form_item(field, options)
+  end
+
   def password(field, placeholder)
     FormPassword.new(@form).build_form_item(field, { placeholder: placeholder })
   end

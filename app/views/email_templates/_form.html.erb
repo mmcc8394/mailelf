@@ -1,0 +1,21 @@
+<%= form_with(model: email_template, local: true) do |f| %>
+  <% fi = FormItem.new(f) %>
+
+  <% if email_template.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(email_template.errors.count, "error") %> prohibited this email_template from being saved:</h2>
+
+      <ul>
+        <% email_template.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= fi.text_field(:name, 'template name') %>
+  <%= fi.text_field(:subject, 'template subject') %>
+  <%= fi.text_area(:message, { placeholder: 'template message', rows: 15 }) %>
+  <%= fi.submit('create') %>
+  <%= link_to 'Cancel', email_templates_path %>
+<% end %>
