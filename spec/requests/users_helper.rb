@@ -9,6 +9,11 @@ module UsersHelper
     @basic = User.create!({ email: 'basic@domain.com', password: @basic_password, roles: [ 'basic' ] })
   end
 
+  def basic_login
+    post login_path, params: { user: { email: @basic.email, password: @basic_password } }
+    follow_redirect!
+  end
+
   def expect_user_shown(user)
     expect(response.body).to include('User Details')
     expect(response.body).to include(user.email)

@@ -70,11 +70,4 @@ RSpec.describe "UsersBasic", type: :request do
       put user_path(@basic), params: { user: { roles: [ 'admin' ] } }
     end
   end
-
-  private
-
-  def basic_login
-    post login_path, params: { user: { email: @basic.email, password: @basic_password } }
-    follow_redirect!
-  end
 end

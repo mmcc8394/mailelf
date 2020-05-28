@@ -1,4 +1,5 @@
 class EmailTemplatesController < ApplicationController
+  before_action :verify_logged_in
   before_action :set_email_template, only: [:show, :edit, :update, :destroy]
 
   def index
