@@ -26,8 +26,7 @@ class EmailTemplatesController < ApplicationController
 
   def edit
   end
-
-  # PATCH/PUT /email_templates/1
+  
   def update
     if @email_template.update(email_template_params)
       redirect_to @email_template, notice: 'Email template was successfully updated.'
