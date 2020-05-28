@@ -8,6 +8,7 @@ class EmailTemplatesController < ApplicationController
   end
 
   def show
+    flash[:alert] = 'This template has been archived. It cannot be used in new campaigns.' if @email_template.archived?
   end
 
   def new

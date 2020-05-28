@@ -10,6 +10,10 @@
 </ul>
 
 <div class="show-action-options">
-  <%= action_link(edit_email_template_path(@email_template), 'pencil', 'edit template') %>
-  <%= action_link_delete(email_template_path(@email_template)) %>
+  <% if @email_template.archived? %>
+    <i>This email template is archived.</i>
+  <% else %>
+    <%= action_link(edit_email_template_path(@email_template), 'pencil', 'edit template') %>
+    <%= action_link_delete(email_template_path(@email_template)) %>
+  <% end %>
 </div>

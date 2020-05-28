@@ -7,12 +7,16 @@
 <% else %>
   <table class="table">
     <% @email_templates.each do |template| %>
-      <tr>
+      <tr<%= ' class="archived"'.html_safe if template.archived? %>>
         <td><%= template.name %></td>
         <td>
           <%= action_link(email_template_path(template), 'eye', 'view template') %>
-          <%= action_link(edit_email_template_path(template), 'pencil', 'edit template') %>
-          <%= action_link_delete(email_template_path(template)) %>
+          <% if template.archived? %>
+            <span>archived</span>
+          <% else %>
+            <%= action_link(edit_email_template_path(template), 'pencil', 'edit template') %>
+            <%= action_link_delete(email_template_path(template)) %>
+          <% end %>
         </td>
       </tr>
     <% end %>
