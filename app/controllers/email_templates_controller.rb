@@ -6,7 +6,6 @@ class EmailTemplatesController < ApplicationController
     @email_templates = EmailTemplate.all
   end
 
-  # GET /email_templates/1
   def show
   end
 

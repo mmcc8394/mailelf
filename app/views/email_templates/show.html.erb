@@ -1,2 +1,14 @@
-<%= link_to 'Edit', edit_email_template_path(@email_template) %> |
-<%= link_to 'Back', email_templates_path %>
+<div class="text-right">
+  &nwarr; <%= link_to 'Back', email_templates_path %>
+</div>
+
+<h1>Email Template</h1>
+
+<h3><%= @email_template.name %></h3>
+
+<ul class="list-group">
+  <li class="list-group-item active">Subject: <%= @email_template.subject %></li>
+  <li class="list-group-item">
+    <pre><%= @email_template.message %></pre>
+  </li>
+</ul>
