@@ -22,14 +22,18 @@ class FormItem
     FormPassword.new(@form).build_form_item(field, { placeholder: placeholder })
   end
 
-  def select(field, select_options)
-    FormSelect.new(@form).build_form_item(field, { select_options: select_options })
+  def select(field, options = {})
+    FormSelect.new(@form).build_form_item(field, options)
   end
 
   def checkbox_collection(field, collection, value_function, label_function)
     FormCheckboxCollection.new(@form).build_form_item(field, { collection: collection,
                                                                value_function: value_function,
                                                                label_function: label_function })
+  end
+
+  def file_upload(field, options = {})
+    FormFileUpload.new(@form).build_form_item(field, options)
   end
 
   def submit(text)
