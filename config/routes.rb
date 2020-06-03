@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   end
 
   resources :email_templates
-  resources :campaigns
+  resources :campaigns, only: [ :index, :new, :create, :show ]
 
   root 'logins#new'
 end

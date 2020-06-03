@@ -7,7 +7,11 @@ RSpec.describe Campaign, type: :model do
                                         message: 'This is a message.',
                                         admin_id: 1
                                       })
-    @campaign = Campaign.new({ email_template_id: @template.id, admin_id: 1 })
+
+    @campaign = Campaign.new({ email_template_id: @template.id,
+                               admin_id: 1,
+                               email_data: ActionDispatch::Http::UploadedFile.new(tempfile: 'blah')
+                             })
   end
 
   it 'valid' do
@@ -17,25 +21,26 @@ RSpec.describe Campaign, type: :model do
   context 'invalid' do
     it 'email_template_id is nil' do
       @campaign.email_template_id = nil
-      expect(@campaign).to_not be_valid
       expect(@campaign.errors[:email_template_id]).to include('is not a number')
     end
 
     it 'email_template_id is 0' do
       @campaign.email_template_id = 0
-      expect(@campaign).to_not be_valid
       expect(@campaign.errors[:email_template_id]).to include('must be greater than 0')
+    end
+
+    it 'email data missing' do
+      @campaign.email_data = nil
+      expect(@campaign.errors[:email_data]).to include("can't be blank")
     end
 
     it 'admin_id is nil' do
       @campaign.admin_id = nil
-      expect(@campaign).to_not be_valid
       expect(@campaign.errors[:admin_id]).to include('is not a number')
     end
 
     it 'admin_id is 0' do
       @campaign.admin_id = 0
-      expect(@campaign).to_not be_valid
       expect(@campaign.errors[:admin_id]).to include('must be greater than 0')
     end
   end

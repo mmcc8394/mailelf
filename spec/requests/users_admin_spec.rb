@@ -1,9 +1,4 @@
-require 'rails_helper'
-require 'requests/users_helper'
-
-RSpec.configure do |c|
-  c.include UsersHelper
-end
+require 'request_helper'
 
 RSpec.describe "UsersAdmin", type: :request do
   before(:each) do

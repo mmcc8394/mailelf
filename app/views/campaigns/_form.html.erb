@@ -1,8 +1,9 @@
-<%= form_with(model: campaign, local: true) do |form| %>
+<%= form_with(model: campaign, local: true, multipart: true) do |f| %>
+  <% fi = FormItem.new(f) %>
+
   <% if campaign.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(campaign.errors.count, "error") %> prohibited this campaign from being saved:</h2>
-
+      <h3>There were errors:</h3>
       <ul>
         <% campaign.errors.full_messages.each do |message| %>
           <li><%= message %></li>
@@ -11,7 +12,13 @@
     </div>
   <% end %>
 
-  <div class="actions">
-    <%= form.submit %>
+  <%= fi.file_upload('email_data', accept: '.csv') %>
+  <%= fi.select(:email_template_id,
+                select_items: EmailTemplate.options_for_select,
+                prompt: 'Select Template') %>
+
+  <div class="submit-line">
+    <%= fi.submit('submit') %>
+    <%= link_to 'cancel', campaigns_path, class: 'cancel-link' %>
   </div>
 <% end %>

@@ -1,9 +1,4 @@
-require 'rails_helper'
-require 'requests/users_helper'
-
-RSpec.configure do |c|
-  c.include UsersHelper
-end
+require 'request_helper'
 
 RSpec.describe "UsersNotLoggedIn", type: :request do
   context 'cannot' do

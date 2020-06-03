@@ -6,6 +6,12 @@ class EmailTemplate < ApplicationRecord
   validates :archived, inclusion: { in: [ true, false ] }
   validate  :editable, on: :update
 
+  scope :alive, -> { where(archived: false) }
+
+  def self.options_for_select
+    alive.map { |template| [ template.name, template.id ] }
+  end
+
   def destroy
     return 'archived' if archived?
 

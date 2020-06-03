@@ -1,23 +1,18 @@
-require 'rails_helper'
-require 'requests/users_helper'
-
-RSpec.configure do |c|
-  c.include UsersHelper
-end
+require 'request_helper'
 
 RSpec.describe "/email_templates", type: :request do
   before(:each) {
     create_basic_user
-    @template = EmailTemplate.create({ name: 'Some Name',
-                                       subject: 'Some Subject',
-                                       message: 'Some Message',
-                                       admin_id: 1
-                                     })
+    @template = EmailTemplate.create!({ name: 'Some Name',
+                                        subject: 'Some Subject',
+                                        message: 'Some Message',
+                                        admin_id: 1
+                                      })
   }
 
   it 'denies access' do
     get email_templates_path
-    expect(response).to_not be_successful
+    expect_access_denied
   end
 
   context 'allows access' do
