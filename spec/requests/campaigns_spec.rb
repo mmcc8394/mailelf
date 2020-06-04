@@ -8,9 +8,11 @@ RSpec.describe "/campaigns", type: :request do
                                         message: 'Some Message',
                                         admin_id: 1
                                       })
-    @campaign = Campaign.create!({ email_template_id: @template.id,
-                                   admin_id: 1
-                                 })
+
+    @campaign = Campaign.new({ admin_id: 1,
+                               email_template_id: @template.id,
+                               email_data: ActionDispatch::Http::UploadedFile.new(tempfile: "#{Rails.root}/spec/fixtures/files/template_1.csv")
+                             })
   }
 
   it 'denies access' do

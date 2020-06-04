@@ -9,7 +9,8 @@ class Campaign < ApplicationRecord
 
   def send_emails
     CSV.foreach(email_data.tempfile, headers: true).each do |line|
-      BulkMailer.with(template: email_template, data: line.to_hash).send_mail.deliver_later
+      # quirk of serialization: turns symbols to strings - turn them back to symbols
+      BulkMailer.with(template: email_template, data: line.to_hash.transform_keys(&:to_sym)).send_mail.deliver_later
     end
   end
 end

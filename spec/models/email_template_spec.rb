@@ -55,7 +55,9 @@ RSpec.describe EmailTemplate, type: :model do
     end
 
     it 'archived' do
-      Campaign.create!({ email_template_id: @template.id, admin_id: 1 })
+      Campaign.create!({ admin_id: 1,
+                         email_template_id: @template.id,
+                         email_data: ActionDispatch::Http::UploadedFile.new(tempfile: "#{Rails.root}/spec/fixtures/files/template_1.csv") })
       expect(@template.destroy).to eq('archived')
       expect(EmailTemplate.all.length).to eq(1)
     end

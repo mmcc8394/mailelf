@@ -47,12 +47,6 @@ RSpec.describe Campaign, type: :model do
     end
   end
 
-  #@campaign = Campaign.new({ email_template_id: @template.id,
-  #                           email_data: ActionDispatch::Http::UploadedFile.new(tempfile: "#{Rails.root}/tmp/template_1.csv"),
-  #                           #email_data: ActionDispatch::Http::UploadedFile.new(tempfile: fixture_file_upload("#{Rails.root}/tmp/template_1.csv", 'csv')),
-  #                           #email_data: ActionDispatch::Http::UploadedFile.new({ tempfile: Tempfile.new("#{Rails.root}/tmp/template_1.csv") }),
-  #                           admin_id: @user.id
-  #                         })
   context 'sending mails' do
     include ActiveJob::TestHelper
 
