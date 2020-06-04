@@ -11,7 +11,7 @@ RSpec.describe "/campaigns", type: :request do
 
     @campaign = Campaign.new({ admin_id: 1,
                                email_template_id: @template.id,
-                               email_data: ActionDispatch::Http::UploadedFile.new(tempfile: "#{Rails.root}/spec/fixtures/files/template_1.csv")
+                               email_data: ActionDispatch::Http::UploadedFile.new(tempfile: "#{Rails.root}/spec/fixtures/files/template_valid.csv")
                              })
   }
 

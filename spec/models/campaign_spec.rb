@@ -12,7 +12,7 @@ RSpec.describe Campaign, type: :model do
 
     @campaign = Campaign.new({ admin_id: 1,
                                email_template_id: @template.id,
-                               email_data: ActionDispatch::Http::UploadedFile.new(tempfile: "#{Rails.root}/spec/fixtures/files/template_1.csv")
+                               email_data: ActionDispatch::Http::UploadedFile.new(tempfile: "#{Rails.root}/spec/fixtures/files/template_valid.csv")
                              })
   end
 
@@ -44,6 +44,18 @@ RSpec.describe Campaign, type: :model do
     it 'admin_id is 0' do
       @campaign.update({ admin_id: 0 })
       expect(@campaign.errors[:admin_id]).to include('must be greater than 0')
+    end
+  end
+
+  context 'csv file and template do not jive' do
+    it 'missing key in csv file' do
+      @template.update({ message: 'This is an error %{error}.' })
+      @campaign.valid?
+      expect(@campaign.errors[:email_data]).to include('CSV file missing key(s)')
+    end
+
+    it 'blank value in CSV file' do
+      @campaign.email_data = ActionDispatch::Http::UploadedFile.new(tempfile: "#{Rails.root}/spec/fixtures/files/template_blank_value.csv")
     end
   end
 
