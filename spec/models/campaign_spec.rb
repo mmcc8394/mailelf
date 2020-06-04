@@ -47,7 +47,7 @@ RSpec.describe Campaign, type: :model do
     end
   end
 
-  context 'csv file and template do not jive' do
+  context 'csv file has correct data for template' do
     it 'missing key in csv file' do
       @template.update({ message: 'This is an error %{error}.' })
       @campaign.valid?
@@ -56,6 +56,20 @@ RSpec.describe Campaign, type: :model do
 
     it 'blank value in CSV file' do
       @campaign.email_data = ActionDispatch::Http::UploadedFile.new(tempfile: "#{Rails.root}/spec/fixtures/files/template_blank_value.csv")
+      @campaign.valid?
+      expect(@campaign.errors[:email_data]).to include('CSV file missing key(s)')
+    end
+
+    it 'missing email field' do
+      @campaign.email_data = ActionDispatch::Http::UploadedFile.new(tempfile: "#{Rails.root}/spec/fixtures/files/template_with_no_email_field.csv")
+      @campaign.valid?
+      expect(@campaign.errors[:email_data]).to include('email field required in CSV file')
+    end
+
+    it 'bad email value in CSV file' do
+      @campaign.email_data = ActionDispatch::Http::UploadedFile.new(tempfile: "#{Rails.root}/spec/fixtures/files/template_bad_email.csv")
+      @campaign.valid?
+      expect(@campaign.errors[:email_data]).to include('invalid email(s) in CSV file')
     end
   end
 
