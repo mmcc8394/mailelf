@@ -1,5 +1,9 @@
 require 'csv'
 
+#
+# TODO: Add statistics and store them in the database on .save!
+#
+
 class Campaign < ApplicationRecord
   include CsvRowToHash
 

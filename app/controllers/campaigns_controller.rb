@@ -1,6 +1,5 @@
 class CampaignsController < ApplicationController
   before_action :verify_logged_in
-  before_action :set_campaign, only: [ :show ]
 
   # GET /campaigns
   def index
@@ -20,7 +19,9 @@ class CampaignsController < ApplicationController
     @campaign = Campaign.new(campaign_params.merge({ admin_id: current_user.id }))
 
     if @campaign.valid?
-      
+      @campaign.send_emails
+      @campaign.save!
+
       redirect_to @campaign, notice: 'Campaign was successfully created.'
     else
       render :new
@@ -29,7 +30,6 @@ class CampaignsController < ApplicationController
 
   private
 
-  # Only allow a trusted parameter "white list" through.
   def campaign_params
     params.require(:campaign).permit(:email_template_id, :email_data)
   end
