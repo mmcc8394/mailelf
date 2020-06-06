@@ -16,8 +16,9 @@ ActiveRecord::Schema.define(version: 2020_05_27_184544) do
   enable_extension "plpgsql"
 
   create_table "campaigns", force: :cascade do |t|
-    t.integer "email_template_id", null: false
     t.integer "admin_id", null: false
+    t.integer "email_template_id", null: false
+    t.integer "emails_queued", default: 0, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

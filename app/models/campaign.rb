@@ -11,11 +11,13 @@ class Campaign < ApplicationRecord
   attr_accessor :email_data
 
   validates :admin_id, :email_template_id, numericality: { only_integer: true, greater_than: 0 }
+  validates :emails_queued, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
   validates_with CsvFileValidator
 
   def send_emails
     CSV.foreach(email_data.tempfile, headers: true).each do |row|
       BulkMailer.with(template: email_template, data: csv_row_to_no_blanks_hash(row)).send_mail.deliver_later
+      self.emails_queued += 1
     end
   end
 end

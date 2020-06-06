@@ -45,6 +45,11 @@ RSpec.describe Campaign, type: :model do
       @campaign.update({ admin_id: 0 })
       expect(@campaign.errors[:admin_id]).to include('must be greater than 0')
     end
+
+    it 'emails_queued is negative' do
+      @campaign.update({ emails_queued: -1 })
+      expect(@campaign.errors[:emails_queued]).to include('must be greater than or equal to 0')
+    end
   end
 
   context 'csv file has correct data for template' do
@@ -88,6 +93,11 @@ RSpec.describe Campaign, type: :model do
       perform_enqueued_jobs
       expect(BulkMailer.deliveries.count).to eq(2)
       expect(BulkMailer.deliveries.first.body.encoded).to match('This is a message for Jane.')
+    end
+
+    it 'emails queued' do
+      @campaign.send_emails
+      expect(@campaign.emails_queued).to eq(2)
     end
   end
 end
