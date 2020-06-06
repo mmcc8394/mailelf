@@ -16,8 +16,27 @@ RSpec.describe Campaign, type: :model do
                              })
   end
 
-  it 'valid' do
-    expect(@campaign.valid?).to eq(true)
+  context 'valid' do
+    it 'basics' do
+      expect(@campaign.valid?).to eq(true)
+    end
+
+    it 'default throttle values' do
+      expect(@campaign.instance_eval { @time_between_emails }).to eq(Campaign::DEFAULT_TIME_BETWEEN_EMAILS)
+      expect(@campaign.instance_eval { @max_daily_emails }).to eq(Campaign::DEFAULT_MAX_DAILY_EMAILS)
+    end
+
+    it 'default throttle values' do
+      @campaign = Campaign.new({ admin_id: 1,
+                                 email_template_id: @template.id,
+                                 email_data: ActionDispatch::Http::UploadedFile.new(tempfile: "#{Rails.root}/spec/fixtures/files/template_valid.csv"),
+                                 time_between_emails: 99,
+                                 max_daily_emails: 999
+                               })
+
+      expect(@campaign.instance_eval { @time_between_emails }).to eq(99)
+      expect(@campaign.instance_eval { @max_daily_emails }).to eq(999)
+    end
   end
 
   context 'invalid' do
