@@ -47,6 +47,7 @@ class Campaign < ApplicationRecord
   end
 
   def interday_offset
+    # number of email sent this day * time_between_emails
     (emails_queued % @max_daily_emails.to_i) * @time_between_emails
   end
 
