@@ -29,7 +29,7 @@ class Campaign < ApplicationRecord
       BulkMailer
           .with(template: email_template, data: csv_row_to_no_blanks_hash(row))
           .send_mail
-          .deliver_later
+          .deliver_later(wait: email_delay)
 
       self.emails_queued += 1
     end
@@ -38,7 +38,16 @@ class Campaign < ApplicationRecord
   private
 
   def email_delay
+    (day_offset + interday_offset).seconds
+  end
 
+  def day_offset
+    # day * seconds_in_a_day
+    emails_queued / @max_daily_emails.to_i * 86400
+  end
+
+  def interday_offset
+    (emails_queued % @max_daily_emails.to_i) * @time_between_emails
   end
 
   def scrub_params(params)

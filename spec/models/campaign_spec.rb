@@ -100,23 +100,58 @@ RSpec.describe Campaign, type: :model do
   context 'sending mails' do
     include ActiveJob::TestHelper
 
-    before(:each) { clear_enqueued_jobs }
+    before(:each) do
+      clear_enqueued_jobs
+      @campaign.send_emails
+    end
 
     it 'queues emails' do
-      @campaign.send_emails
-      expect(enqueued_jobs.size).to eq(2)
+      expect(enqueued_jobs.size).to eq(3)
     end
 
     it 'first email is correct text' do
-      @campaign.send_emails
       perform_enqueued_jobs
-      expect(BulkMailer.deliveries.count).to eq(2)
+      expect(BulkMailer.deliveries.count).to eq(3)
       expect(BulkMailer.deliveries.first.body.encoded).to match('This is a message for Jane.')
     end
 
-    it 'emails queued' do
+    it 'emails_queued value set properly' do
+      expect(@campaign.emails_queued).to eq(3)
+    end
+  end
+
+  context 'email throttling' do
+    include ActiveJob::TestHelper
+
+    before(:each) do
+      @now = Time.now
+      @campaign = Campaign.new({ admin_id: 1,
+                                 email_template_id: @template.id,
+                                 email_data: ActionDispatch::Http::UploadedFile.new(tempfile: "#{Rails.root}/spec/fixtures/files/template_valid.csv"),
+                                 time_between_emails: 600,
+                                 max_daily_emails: 2
+                               })
       @campaign.send_emails
-      expect(@campaign.emails_queued).to eq(2)
+    end
+
+    it 'first email sent right away' do
+      expect(enqueued_jobs[0][:at]).to be < Time.now.to_f
+    end
+
+    it 'second email sent with delay' do
+      expect(enqueued_jobs[1][:at]).to be > (@now + 500.seconds).to_f
+    end
+
+    it 'second email not sent too long after delay' do
+      expect(enqueued_jobs[1][:at]).to be < (Time.now + 600.seconds).to_f
+    end
+
+    it 'last email sent tomorrow' do
+      expect(enqueued_jobs.last[:at]).to be >= (@now + 24.hours).to_f
+    end
+
+    it 'last email sent tomorrow without interday offset' do
+      expect(enqueued_jobs.last[:at]).to be < (@now + 24.hours + 100).to_f
     end
   end
 end
