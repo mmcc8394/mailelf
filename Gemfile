@@ -36,3 +36,7 @@ group :development do
   gem 'spring-watcher-listen'
   gem 'letter_opener'
 end
+
+group :test do
+  gem 'capybara'
+end

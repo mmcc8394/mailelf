@@ -76,6 +76,14 @@ GEM
       sassc-rails (>= 2.0.0)
     builder (3.2.4)
     byebug (11.1.3)
+    capybara (3.32.2)
+      addressable
+      mini_mime (>= 0.1.3)
+      nokogiri (~> 1.8)
+      rack (>= 1.6.0)
+      rack-test (>= 0.6.3)
+      regexp_parser (~> 1.5)
+      xpath (~> 3.2)
     coderay (1.1.2)
     concurrent-ruby (1.1.6)
     crass (1.0.6)
@@ -162,6 +170,7 @@ GEM
     rb-fsevent (0.10.4)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
+    regexp_parser (1.7.0)
     rspec-core (3.9.2)
       rspec-support (~> 3.9.3)
     rspec-expectations (3.9.2)
@@ -222,6 +231,8 @@ GEM
     websocket-driver (0.7.2)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.4)
+    xpath (3.2.0)
+      nokogiri (~> 1.8)
     zeitwerk (2.3.0)
 
 PLATFORMS
@@ -234,6 +245,7 @@ DEPENDENCIES
   bootsnap
   bootstrap
   byebug
+  capybara
   enumerize
   jquery-rails
   letter_opener
