@@ -26,8 +26,11 @@ class Campaign < ApplicationRecord
 
   def send_emails
     CSV.foreach(email_data.tempfile, headers: true).each do |row|
+      row = csv_row_to_no_blanks_hash(row)
+      next if skip_email?(row[:email])
+
       BulkMailer
-          .with(template: email_template, data: csv_row_to_no_blanks_hash(row))
+          .with(template: email_template, data: row)
           .send_mail
           .deliver_later(wait: email_delay)
 
@@ -36,6 +39,13 @@ class Campaign < ApplicationRecord
   end
 
   private
+
+  def skip_email?(email)
+    contact = Contact.find_or_create_by(email: email)
+    return true unless contact.valid? # shouldn't happen, but we'll double check anyway
+
+    contact.do_not_email?
+  end
 
   def email_delay
     (day_offset + interday_offset).seconds

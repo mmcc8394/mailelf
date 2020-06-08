@@ -118,6 +118,22 @@ RSpec.describe Campaign, type: :model do
     it 'emails_queued value set properly' do
       expect(@campaign.emails_queued).to eq(3)
     end
+
+    it 'create contacts' do
+      expect(Contact.find_by_email('pat@doe.com')).to be_truthy
+    end
+  end
+
+  context 'do not email' do
+    include ActiveJob::TestHelper
+
+    before(:each) { clear_enqueued_jobs }
+
+    it 'honor do_not_email flag' do
+      Contact.create!({ email: 'pat@doe.com', do_not_email: true })
+      @campaign.send_emails
+      expect(@campaign.emails_queued).to eq(2)
+    end
   end
 
   context 'email throttling' do
