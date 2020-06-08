@@ -22,7 +22,7 @@ class CampaignsController < ApplicationController
       @campaign.send_emails
       @campaign.save!
 
-      redirect_to @campaign, notice: 'Campaign was successfully created.'
+      redirect_to @campaign, notice: 'Campaign was successfully executed.'
     else
       render :new
     end

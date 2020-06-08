@@ -15,8 +15,15 @@ RSpec.describe "/campaigns", type: :request do
                              })
   }
 
-  it 'denies access' do
-    get campaigns_path
-    expect_access_denied
+  context 'denies access' do
+    it 'index page' do
+      get campaigns_path
+      expect_access_denied
+    end
+
+    it 'create (send emails)' do
+      post campaigns_path, params: { campaign: { email_template_id: @campaign.email_template_id, email_data: @campaign.email_data } }
+      expect_access_denied
+    end
   end
 end

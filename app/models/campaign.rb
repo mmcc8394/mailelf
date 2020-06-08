@@ -18,8 +18,8 @@ class Campaign < ApplicationRecord
   DEFAULT_MAX_DAILY_EMAILS = 400
 
   def initialize(params = {})
-    @time_between_emails = params[:time_between_emails] || DEFAULT_TIME_BETWEEN_EMAILS
-    @max_daily_emails = params[:max_daily_emails] || DEFAULT_MAX_DAILY_EMAILS
+    @time_between_emails = params.try(:[], :time_between_emails) || DEFAULT_TIME_BETWEEN_EMAILS
+    @max_daily_emails = params.try(:[], :max_daily_emails) || DEFAULT_MAX_DAILY_EMAILS
 
     super(scrub_params(params))
   end
@@ -52,6 +52,7 @@ class Campaign < ApplicationRecord
   end
 
   def scrub_params(params)
+    return if params.nil?
     params.delete_if { |key, value| key.to_sym == :time_between_emails || key.to_sym == :max_daily_emails }
   end
 end
