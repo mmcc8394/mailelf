@@ -19,5 +19,7 @@ Rails.application.routes.draw do
   resources :email_templates
   resources :campaigns, only: [ :index, :new, :create, :show ]
 
+  get 'unsubscribe/:guid', to: 'contacts#unsubscribe', as: 'unsubscribe'
+
   root 'logins#new'
 end
