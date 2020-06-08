@@ -3,10 +3,10 @@ class CampaignsController < ApplicationController
 
   # GET /campaigns
   def index
-    @campaigns = Campaign.all
+    @campaigns = Campaign.all.order('created_at desc')
   end
 
-  # GET /campaigns/1
+  # TODO: Implement this once we have stats on a campaign.
   def show
     @campaign = Campaign.find(params[:id])
   end
@@ -22,7 +22,7 @@ class CampaignsController < ApplicationController
       @campaign.send_emails
       @campaign.save!
 
-      redirect_to @campaign, notice: 'Campaign was successfully executed.'
+      redirect_to campaigns_path, notice: 'Campaign was successfully executed.'
     else
       render :new
     end
