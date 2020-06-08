@@ -38,7 +38,7 @@ Rails.application.configure do
 
   # handling mail
   config.action_mailer.delivery_method = :letter_opener
-  config.active_job.queue_adapter = :inline
+  config.active_job.queue_adapter = :delayed_job
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log

@@ -12,6 +12,8 @@ gem 'bootstrap'
 gem 'jquery-rails'
 gem 'octicons'
 gem 'octicons_helper'
+gem 'delayed_job_active_record'
+gem 'daemons'
 
 gem 'bcrypt'
 gem 'pundit'
