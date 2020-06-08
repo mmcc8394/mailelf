@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 2020_06_08_154448) do
   end
 
   create_table "contacts", force: :cascade do |t|
+    t.string "guid", null: false
     t.string "email", null: false
     t.boolean "do_not_email", default: false, null: false
     t.datetime "created_at", precision: 6, null: false

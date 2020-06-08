@@ -3,9 +3,20 @@ require 'rails_helper'
 RSpec.describe Contact, type: :model do
   before(:each) { @contact = Contact.new({ email: 'contact@example.com' }) }
 
-  it 'valid with default' do
-    expect(@contact.save).to eq(true)
-    expect(Contact.first.do_not_email).to eq(false)
+  context 'valid' do
+    before(:each) { @contact.save! }
+
+    it 'basic create' do
+      expect(Contact.find(@contact.id)).to be_truthy
+    end
+
+    it 'sets default do_not_email' do
+      expect(Contact.find(@contact.id).do_not_email?).to eq(false)
+    end
+
+    it 'generates a GUID' do
+      expect(Contact.find(@contact.id).guid.downcase).to match(/[0-9a-f]{8}\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\b[0-9a-f]{12}/)
+    end
   end
 
   context 'invalid' do
