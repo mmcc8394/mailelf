@@ -14,8 +14,8 @@ class Campaign < ApplicationRecord
   validates :emails_queued, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
   validates_with CsvFileValidator
 
-  DEFAULT_TIME_BETWEEN_EMAILS = 6   # seconds
-  DEFAULT_MAX_DAILY_EMAILS = 400
+  DEFAULT_TIME_BETWEEN_EMAILS = 10   # seconds
+  DEFAULT_MAX_DAILY_EMAILS = 100
 
   def initialize(params = {})
     @time_between_emails = params.try(:[], :time_between_emails) || DEFAULT_TIME_BETWEEN_EMAILS
