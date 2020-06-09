@@ -21,8 +21,7 @@ gem 'enumerize'
 
 gem 'bootsnap', require: false
 
-# Use Puma as the app server
-#gem 'puma'
+gem 'passenger', require: 'phusion_passenger/rack_handler'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

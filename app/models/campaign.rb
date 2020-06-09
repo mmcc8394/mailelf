@@ -30,7 +30,7 @@ class Campaign < ApplicationRecord
       next if skip_email?(row[:email])
 
       BulkMailer
-          .with(template: email_template, data: row)
+          .with(user_id: admin_id, template: email_template, data: row)
           .send_mail
           .deliver_later(wait: email_delay)
 

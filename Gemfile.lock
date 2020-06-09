@@ -115,6 +115,7 @@ GEM
     enumerize (2.3.1)
       activesupport (>= 3.2)
     erubi (1.9.0)
+    etc (1.1.0)
     execjs (2.7.0)
     ffi (1.12.2)
     globalid (0.4.2)
@@ -156,6 +157,10 @@ GEM
     octicons_helper (9.6.0)
       octicons (= 9.6.0)
       rails
+    passenger (6.0.5)
+      etc
+      rack
+      rake (>= 0.8.1)
     pg (1.2.3)
     popper_js (1.16.0)
     public_suffix (4.0.5)
@@ -287,6 +292,7 @@ DEPENDENCIES
   listen
   octicons
   octicons_helper
+  passenger
   pg
   pundit
   rails
