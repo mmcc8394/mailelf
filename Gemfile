@@ -38,8 +38,8 @@ group :development do
   gem 'spring-watcher-listen'
   gem 'letter_opener'
   gem 'capistrano', require: false
-  gem 'capistrano-rails',     require: false
-  gem 'capistrano-rvm',       require: false
+  gem 'capistrano-rails', require: false
+  gem 'capistrano-rvm', require: false
   gem 'capistrano-passenger', require: false
 end
 
