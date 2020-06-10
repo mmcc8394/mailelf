@@ -15,7 +15,7 @@ class Campaign < ApplicationRecord
   validates_with CsvFileValidator
 
   DEFAULT_TIME_BETWEEN_EMAILS = 10   # seconds
-  DEFAULT_MAX_DAILY_EMAILS = 100
+  DEFAULT_MAX_DAILY_EMAILS = 250
 
   def initialize(params = {})
     @time_between_emails = params.try(:[], :time_between_emails) || DEFAULT_TIME_BETWEEN_EMAILS
