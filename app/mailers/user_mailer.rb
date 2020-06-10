@@ -1,4 +1,6 @@
 class UserMailer < ApplicationMailer
+  default from: 'JCD Repair <support@jcdrepair.com>'
+
   def welcome(user)
     @user = user
     mail(to: @user.email, subject: 'New User Account Created')

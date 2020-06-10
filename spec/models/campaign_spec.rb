@@ -10,7 +10,7 @@ RSpec.describe Campaign, type: :model do
                                         message: 'This is a message for %{first_name}.'
                                       })
 
-    @campaign = Campaign.new({ admin_id: 1,
+    @campaign = Campaign.new({ admin_id: @user.id,
                                email_template_id: @template.id,
                                email_data: ActionDispatch::Http::UploadedFile.new(tempfile: "#{Rails.root}/spec/fixtures/files/template_valid.csv")
                              })

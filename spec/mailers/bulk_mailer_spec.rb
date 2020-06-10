@@ -10,8 +10,10 @@ RSpec.describe BulkMailer, type: :mailer do
                                         message: 'This is a message for %{first_name}.'
                                       })
 
-    @mail = BulkMailer.with(template: @template,
-                            data: { email: 'someone@example.com', first_name: 'Mark', last_name: 'Johnson' }).send_mail
+    @contact = Contact.create!({ email: 'someone@example.com' })
+    @mail = BulkMailer.with(user_id: @user.id,
+                            template: @template,
+                            data: { email: @contact.email, first_name: 'Mark', last_name: 'Johnson' }).send_mail
   end
 
   it 'enqueues proper email' do

@@ -35,6 +35,13 @@ RSpec.describe Contact, type: :model do
       expect(@contact.errors[:email]).to include('invalid email format')
     end
 
+    it 'duplicate email' do
+      @contact.save!
+      tmp_contact = Contact.new({ email: @contact.email })
+      tmp_contact.valid?
+      expect(tmp_contact.errors[:email]).to include('has already been taken')
+    end
+
     it 'do_not_email is nil' do
       @contact.update({ do_not_email: nil })
       expect(@contact.errors[:do_not_email]).to include('must be a boolean value')

@@ -4,6 +4,7 @@ class BulkMailer < ApplicationMailer
     @data = params[:data]
     @to_email = params[:data].delete(:email)
     @user = User.find(params[:user_id])
+    @contact = Contact.find_by_email(@to_email)
 
     delivery_options = { user_name: @user.email,
                          password: Rails.application.credentials.email_passwords[password_symbol]
