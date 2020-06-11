@@ -31,4 +31,17 @@ RSpec.describe BulkMailer, type: :mailer do
   it 'body correct' do
     expect(@mail.body.encoded).to match('This is a message for Mark.')
   end
+
+  it 'from email is correct' do
+    expect(@mail.from).to eq([ 'user@domain.com' ])
+  end
+
+  it 'password symbol' do
+    tmp_user = User.create!({ email: 'testing_only@domain.com', password: 'some-secret', roles: [ 'basic' ] })
+    tmp_mail = BulkMailer.with(user_id: tmp_user.id,
+                               template: @template,
+                               data: { email: @contact.email, first_name: 'Mark', last_name: 'Johnson' }).send_mail
+
+    expect(tmp_mail.delivery_method.settings[:password]).to eq('this_secret')
+  end
 end

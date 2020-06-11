@@ -11,7 +11,7 @@ class BulkMailer < ApplicationMailer
     }
 
     mail(to: @to_email,
-         from: "JCD Repair #{@user.email}",
+         from: "JCD Repair <#{@user.email}>",
          subject: @template.subject,
          delivery_method_options: delivery_options)
   end
@@ -19,6 +19,6 @@ class BulkMailer < ApplicationMailer
   private
 
   def password_symbol
-    :b2b_support
+    @user.email.slice(/^[^@]*/).gsub('.', '_').to_sym
   end
 end
