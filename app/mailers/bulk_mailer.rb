@@ -11,7 +11,7 @@ class BulkMailer < ApplicationMailer
     }
 
     mail(to: @to_email,
-         from: "JCD Repair <#{@user.email}>",
+         from: "TechUnwreck <#{@user.email}>",
          subject: @template.subject,
          delivery_method_options: delivery_options)
   end
