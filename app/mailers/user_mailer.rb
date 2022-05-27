@@ -1,5 +1,5 @@
 class UserMailer < ApplicationMailer
-  default from: 'JCD Repair <support@jcdrepair.com>'
+  default from: 'TechUnwreck <support@techunwreck.com>'
 
   def welcome(user)
     @user = user
