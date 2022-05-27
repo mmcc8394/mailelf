@@ -41,6 +41,9 @@ group :development do
   gem 'capistrano-rvm', require: false
   gem 'capistrano-passenger', require: false
   gem 'capistrano3-delayed-job', require: false
+
+  gem 'ed25519'
+  gem 'bcrypt_pbkdf'
 end
 
 group :test do
